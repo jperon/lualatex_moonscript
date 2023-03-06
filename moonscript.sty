@@ -1,0 +1,31 @@
+%MoonScript TeX style.
+% Copyright (C) 2022-2023 jperon
+% License: MIT
+% This file is part of moonscript.
+
+\ifcsname RequirePackage\endcsname
+  \NeedsTeXFormat{LaTeX2e}%
+  \ProvidesPackage{moonscript}[2023/03/06 v0.1]  %%LYLUATEX_DATE LYLUATEX_VERSION
+  \RequirePackage{luatexbase}
+\else
+  \input luatexbase.sty
+\fi
+\directlua{moonscript = require"moonscript"}
+\def\moon{\directlua{moonscript.begin_buffenv("moon")}}
+\def\endmoon{\directlua{moonscript.end_buffenv()}}
+
+\def\directmoon#1{
+  \directlua{
+    local code = ('\luatexluaescapestring{\unexpanded\expandafter{#1}}')
+    moonscript.moonscript(code)
+  }
+}
+
+\def\moonscript#1{
+  \directlua{
+    local f = io.open('#1')
+    local code = f:read('*a')
+    f:close()
+    moonscript.loadstring(code)()
+  }
+}

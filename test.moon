@@ -1,0 +1,1 @@
+tex.print"\\test : MoonScript code in separated file."

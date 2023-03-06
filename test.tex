@@ -1,0 +1,25 @@
+\documentclass{scrartcl}
+
+\usepackage{moonscript}
+
+\begin{document}
+
+\directmoon{tex.print "Direct MoonScript code for one-liners."}
+
+\def\test{More than one line}
+
+\begin{moon}
+class Test
+  new: =>
+    @text = "\\test : direct MoonScript code."
+  
+  say: =>
+    tex.print @text
+
+obj = Test!
+obj\say!
+\end{moon}
+
+\moonscript{test.moon}
+
+\end{document}
